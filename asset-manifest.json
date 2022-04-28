@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/CrispthoAlex/employee-vaccination-inventory/static/css/main.e6c13ad2.css",
-    "main.js": "/CrispthoAlex/employee-vaccination-inventory/static/js/main.8833dff7.js",
-    "static/js/787.17b5c6eb.chunk.js": "/CrispthoAlex/employee-vaccination-inventory/static/js/787.17b5c6eb.chunk.js",
-    "index.html": "/CrispthoAlex/employee-vaccination-inventory/index.html",
-    "main.e6c13ad2.css.map": "/CrispthoAlex/employee-vaccination-inventory/static/css/main.e6c13ad2.css.map",
-    "main.8833dff7.js.map": "/CrispthoAlex/employee-vaccination-inventory/static/js/main.8833dff7.js.map",
-    "787.17b5c6eb.chunk.js.map": "/CrispthoAlex/employee-vaccination-inventory/static/js/787.17b5c6eb.chunk.js.map"
+    "main.css": "/employee-vaccination-inventory/static/css/main.e6c13ad2.css",
+    "main.js": "/employee-vaccination-inventory/static/js/main.9cc44a86.js",
+    "static/js/787.17b5c6eb.chunk.js": "/employee-vaccination-inventory/static/js/787.17b5c6eb.chunk.js",
+    "index.html": "/employee-vaccination-inventory/index.html",
+    "main.e6c13ad2.css.map": "/employee-vaccination-inventory/static/css/main.e6c13ad2.css.map",
+    "main.9cc44a86.js.map": "/employee-vaccination-inventory/static/js/main.9cc44a86.js.map",
+    "787.17b5c6eb.chunk.js.map": "/employee-vaccination-inventory/static/js/787.17b5c6eb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.8833dff7.js"
+    "static/js/main.9cc44a86.js"
   ]
 }
