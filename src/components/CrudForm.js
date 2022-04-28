@@ -8,19 +8,17 @@ const CrudForm = () => {
   // that will be called when the form is submitted
   const formik = useFormik({
     initialValues: {
-      cc: '',
+      idcitizen: '',
       name: '',
       lastname: '',
       email: '',
-      birthday: '',
+      birthday: '2000-01-01',
       address: '',
       phone: '',
-      vaccinated: '',
-      infovaccine: {
-          name: '', 
-          date: '',
-          dose: '',
-      }
+      checkvaccinated: '',
+      vaccinename: '',
+      vaccinedate: '2020-01-01',
+      vaccinedose: '',
     },
     onsubmit: values => {
       alert(JSON.stringify(values, null, 2));
@@ -29,17 +27,17 @@ const CrudForm = () => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="cc">ID number</label>
-       <input
-         id="cc"
-         name="cc"
+      <label htmlFor="idcitizen"> Citizen ID number </label>
+      <input
+         id="idcitizen"
+         name="idcitizen"
          type="number"
          onChange={formik.handleChange}
          value={formik.values.cc}
          placeholder="123456789"
-       />
-
-      <label htmlFor="name">Name</label>
+      />
+      <br/>
+      <label htmlFor="name"> Name </label>
       <input
         id="name"
         name="name"
@@ -48,8 +46,8 @@ const CrudForm = () => {
         value={formik.values.name}
         placeholder="Name Employee"
       />
-
-      <label htmlFor="lastname">Lastname</label>
+      <br/>
+      <label htmlFor="lastname"> Lastname </label>
       <input
         id="lastname"
         name="lastname"
@@ -58,8 +56,8 @@ const CrudForm = () => {
         value={formik.values.lastname}
         placeholder="LastName Employee"
       />
-
-      <label htmlFor="email">Email Address</label>
+      <br/>
+      <label htmlFor="email"> Email Address </label>
       <input
         id="email"
         name="email"
@@ -68,18 +66,19 @@ const CrudForm = () => {
         value={formik.values.email}
         placeholder="jhonydeeptrust@gmail.com"
       />
-      
-      <label htmlFor="birthday">Birthday</label>
+      <br/>
+      <label htmlFor="birthday"> Birthday </label>
       <input
         id="birthday"
         name="birthday"
         type="date"
         onChange={formik.handleChange}
         value={formik.values.birthday}
-        placeholder="31/12/2022"
+        min="1950-01-01"
+        max="2004-01-01"
       />
-
-      <label htmlFor="address">Home Address</label>
+      <br/>
+      <label htmlFor="address"> Home Address </label>
       <input
         id="address"
         name="address"
@@ -88,8 +87,8 @@ const CrudForm = () => {
         value={formik.values.address}
         placeholder="Av. July 20 Street 85 House 23"
       />
-
-      <label htmlFor="phone">Phone</label>
+      <br/>
+      <label htmlFor="phone"> Phone </label>
       <input
         id="phone"
         name="phone"
@@ -98,18 +97,56 @@ const CrudForm = () => {
         value={formik.values.phone}
         placeholder="+593 678456309"
       />
-
-      <label htmlFor="vaccinated">
+      <br/>
+      <label htmlFor="checkvaccinated">
         <input
-          id="vaccinated"
-          name="vaccinated"
+          id="checkvaccinated"
+          name="checkvaccinated"
           type="checkbox"
           onChange={formik.handleChange}
-          value={formik.values.vaccinated}
+          value={formik.values.checkvaccinated}
         />
-        vaccinated
+        COVID vaccinated
       </label>
+      <br/>
       
+      <label htmlFor="vaccinename"> Vaccine name </label>
+      <select
+        id="vaccinename"
+        name="vaccinename"
+        typeof="text"
+        onChange={formik.handleChange}
+        value={formik.values.vaccinename}
+      >
+        <option value="Sputnik">Sputnik</option>
+        <option value="AstraZeneca">AstraZeneca</option>
+        <option value="Pfizer">Pfizer</option>
+        <option value="Jhonson&Jhonson">Jhonson&Jhonson</option>
+      </select>
+      <br/>
+      <label htmlFor="vaccinedate"> Vaccinated date </label>
+      <input
+        id="vaccinedate"
+        name="vaccinedate"
+        type="date"
+        onChange={formik.handleChange}
+        value={formik.values.vaccinedate}
+        min="2020-01-01"
+      />
+      <br/>
+      <label htmlFor="vaccinedose"> Vaccine dose </label>
+      <select
+        id="vaccinedose"
+        name="vaccinedose"
+        typeof="number"
+        onChange={formik.handleChange}
+        value={formik.values.vaccinedose}
+      >
+        <option value="dose1">1</option>
+        <option value="dose2">2</option>
+        <option value="dose3">3</option>
+      </select>
+      <br/>
 
       <button type="submit">Submit</button>
     </form>
