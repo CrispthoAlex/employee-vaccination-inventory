@@ -1,6 +1,9 @@
 import React from 'react'
 
-const CrudTableRow = (el) => {
+
+// Component to create each data in a row
+const CrudTableRow = ({el}) => {
+  console.log(el);
   return (
     <tr>
       <td>{el.idcitizen}</td>

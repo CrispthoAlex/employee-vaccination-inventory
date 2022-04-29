@@ -1,9 +1,9 @@
 import React from 'react';
 import CrudTableRow from './CrudTableRow';
 
-
+// Component to create Employee Inventory Table
 const CrudTable = ({data}) => {
-  console.log(data);
+
   return (
     <div>
       <h3>Employee Registry Table</h3>
