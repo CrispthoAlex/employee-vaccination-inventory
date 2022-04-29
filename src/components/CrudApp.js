@@ -52,11 +52,31 @@ const initialDb = [
 const CrudApp = () => {
   const [db, setDb] = useState(initialDb);
 
+  // Set the variable of state to create/update a data
+  const [dataToEdit, setDataToEdit] = useState(null);
+  /*
+    Functions to manage the table
+  */
+  const createData = (data) => {};
+
+  const updateData = (data) => {};
+
+  const deleteData = (data) => {};
+
   return (
     <div>
-        <h2>MANAGE USERS</h2>
-        <CrudForm />
-        <CrudTable data={db}/>
+      <h2>MANAGE USERS</h2>
+      <CrudForm
+        createData={createData}
+        updateData={updateData}
+        dataToEdit={dataToEdit}
+        setDataToEdit={setDataToEdit}
+      />
+      <CrudTable
+        data={db}
+        setDataToEdit={setDataToEdit}
+        deleteData={deleteData}
+      />
     </div>
   );
 }
