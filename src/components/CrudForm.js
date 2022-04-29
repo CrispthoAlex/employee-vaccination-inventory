@@ -1,79 +1,19 @@
 import React from 'react'
 import { useFormik } from "formik";
+import * as Yup from 'yup';
 
 
-// A custom validation function. This must return an object
-// which keys are symmetrical to our values/initialValues
-const validate = values => {
-  const errors = {};
-
-  // id citizen validation
-  if (!values.idcitizen) {
-    errors.idcitizen = 'Required';
-  } else if (values.idcitizen.toString().length < 8 ||
-            values.idcitizen.toString().length > 10) {
-    errors.idcitizen = 'Id citizen is not correct';
-  }
-  // Name validation
-  if (!values.name) {
-    errors.name = 'Required';
-  } else if (values.name.length > 15) {
-    errors.name = 'Must be 15 characters or less';
-  }
-  // Last Name validation
-  if (!values.lastname) {
-    errors.lastname = 'Required';
-  } else if (values.lastname.length > 15) {
-    errors.lastname = 'Must be 15 characters or less';
-  }
-  // Email validation
-  if (!values.email) {
-    errors.email = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
-  // BirthDay validation
-  if(!values.birthday) {
-    errors.birthday = 'Required';
-  }
-  // Address validation
-  if (!values.address) {
-    errors.address = 'Required';
-  } else if (values.address.length < 20) {
-    errors.address = 'Must be 10 characters or more';
-  }
-  // Phone validation
-  if (!values.phone) {
-    errors.phone = 'Required';
-  } else if (values.phone.toString().length < 6 ||
-            values.phone.toString().length > 15) {
-    errors.phone = 'length of phone is wrong';
-  }
-  /*
-    Vaccine information validation
-  */
-  if (values.checkvaccinated) {
-    // Vaccine Name validation
-    if (!values.vaccinename) {
-      errors.vaccinename = 'Required';
-    }
-    // Vaccine Date validation
-    if (!values.vaccinedate) {
-      errors.vaccinedate = 'Required';
-    }
-    // Vaccine Dose validation
-    if (!values.vaccinedose) {
-      errors.vaccinedose = 'Required';
-    }
-  }
-  return errors;
-};
 
 // Employyee Vaccinate Inventory form
 const CrudForm = () => {
 
-  // Pass the useFormik() hook initial form values and a submit function
-  // that will be called when the form is submitted
+  /**
+   * Pass the useFormik() hook initial form values and a submit function
+   * that will be called when the form is submitted
+
+  * Schema Validation with Yup library was configured
+   */
+
   const formik = useFormik({
     initialValues: {
       idcitizen: '',
@@ -88,7 +28,36 @@ const CrudForm = () => {
       vaccinedate: '',
       vaccinedose: '',
     },
-    validate,
+    validationSchema: Yup.object({
+      idcitizen: Yup.string()
+        .max(12, 'Id citizen is not correct')
+        .min(8, 'Id citizen is not correct')
+        .required('Required'),
+      name: Yup.string()
+        .max(12, 'Must be 15 characters or less')
+        .required('Required'),
+      lastname: Yup.string()
+        .max(20, 'Must be 20 characters or less')
+        .required('Required'),
+      email: Yup.string().email('Invalid email address')
+        .required('Required'),
+      birthday: Yup.date()
+        .min('1950-01-01')
+        .max('2004-01-01')
+        .required('Required'),
+      address: Yup.string()
+        .min(20, 'Must be 20 characters or less')
+        .required('Required'),
+      phone: Yup.string()
+        .min(6, 'Length of phone is wrong')
+        .max(15, 'Length of phone is wrong')
+        .required('Required'),
+      vaccinename: Yup.string()
+        .required('Required'),
+      vaccinedate: Yup.date()
+        .min('2020-01-01')
+        .required('Required'),
+    }),
     onsubmit: values => {
       alert(JSON.stringify(values, null, 2));
     },
@@ -100,6 +69,9 @@ const CrudForm = () => {
     Visited fields
     formik.handleBlur: To take advantage of touched, it passes to each
     input’s onBlur prop
+
+    Reducing BoilerPlate
+    formik.getFieldProps() helper method makes it faster to wire up inputs
   */
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -108,9 +80,7 @@ const CrudForm = () => {
          id="idcitizen"
          name="idcitizen"
          type="number"
-         onChange={formik.handleChange}
-         onBlur={formik.handleBlur}
-         value={formik.values.idcitizen}
+         {...formik.getFieldProps('idcitizen')}
          placeholder="123456789"
       />
       {formik.touched.idcitizen && formik.errors.idcitizen ? (
@@ -122,9 +92,7 @@ const CrudForm = () => {
         id="name"
         name="name"
         type="text"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.name}
+        {...formik.getFieldProps('name')}
         placeholder="Name Employee"
       />
       {formik.touched.name && formik.errors.name ? (
@@ -136,9 +104,7 @@ const CrudForm = () => {
         id="lastname"
         name="lastname"
         type="text"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.lastname}
+        {...formik.getFieldProps('lastname')}
         placeholder="LastName Employee"
       />
       {formik.touched.lastname && formik.errors.lastname ? (
@@ -150,9 +116,7 @@ const CrudForm = () => {
         id="email"
         name="email"
         type="email"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.email}
+        {...formik.getFieldProps('email')}
         placeholder="jhonydeeptrust@gmail.com"
       />
       {formik.touched.email && formik.errors.email ? (
@@ -164,9 +128,7 @@ const CrudForm = () => {
         id="birthday"
         name="birthday"
         type="date"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.birthday}
+        {...formik.getFieldProps('birthday')}
         min="1950-01-01"
         max="2004-01-01"
       />
@@ -179,23 +141,19 @@ const CrudForm = () => {
         id="address"
         name="address"
         type="text"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.address}
+        {...formik.getFieldProps('address')}
         placeholder="Av. July 20 Street 85 House 23"
       />
       {formik.touched.address && formik.errors.address ? (
         <div>{formik.errors.address}</div>
       ) : null}
       <br/>
-      <label htmlFor="phone"> Phone </label>
+      <label htmlFor="phone"> Phone (+)</label>
       <input
         id="phone"
         name="phone"
         type="tel"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.phone}
+        {...formik.getFieldProps('phone')}
         placeholder="+593 678456309"
       />
       {formik.touched.phone && formik.errors.phone ? (
@@ -207,9 +165,7 @@ const CrudForm = () => {
           id="checkvaccinated"
           name="checkvaccinated"
           type="checkbox"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.checkvaccinated}
+          {...formik.getFieldProps('checkvaccinated')}
         />
         COVID vaccinated
       </label>
