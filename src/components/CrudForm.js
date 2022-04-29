@@ -7,6 +7,9 @@ import * as Yup from 'yup';
 // Employyee Vaccinate Inventory form
 const CrudForm = () => {
 
+  const handleSubmit = (e) => {};
+  const handleReset = (e) => {};
+
   /**
    * Pass the useFormik() hook initial form values and a submit function
    * that will be called when the form is submitted
@@ -16,6 +19,7 @@ const CrudForm = () => {
 
   const formik = useFormik({
     initialValues: {
+      id: '',
       idcitizen: '',
       name: '',
       lastname: '',
@@ -24,11 +28,14 @@ const CrudForm = () => {
       address: '',
       phone: '',
       checkvaccinated: '',
-      vaccinename: 'Select vaccine',
+      vaccinename: '',
       vaccinedate: '',
       vaccinedose: '',
     },
     validationSchema: Yup.object({
+      id: Yup.string()
+        .min(4, 'Id citizen is not correct')
+        .required('Required'),
       idcitizen: Yup.string()
         .max(12, 'Id citizen is not correct')
         .min(8, 'Id citizen is not correct')
@@ -226,7 +233,9 @@ const CrudForm = () => {
       </div>
       <br/>
 
-      <button type="submit">Submit</button>
+      <button type="submit" value="Send" onClick={handleSubmit}>Submit</button>
+      <br/>
+      <button type="reset" value="Clean" onClick={handleReset}>Reset</button>
     </form>
   );
 }
