@@ -16,17 +16,36 @@ code {
   box-sizing: inherit;
 }
 
+body {
+  background-color: lemonchiffon;
+}
 input[type="text"] {
-  border: thin solid #bcbaba;
-  border-radius: 0.25rem;
-  padding: 0.75rem;
-  margin-bottom:1rem;
+  border: 3px solid #bcbaba;
+  border-radius: 0.45rem;
+  padding: 0.25rem;
+  margin-bottom:0.30rem;
   outline:none;
   display: block;
-  width: 85%;
+  width: 450px;
   font-size: 1rem;
   line-height: 1;
-  background-color: transparent;
+  background-color:khaki;
+}
+
+input[type="number"],
+input[type="email"],
+input[type="date"],
+input[type="tel"] {
+  border: 3px solid #bcbaba;
+  border-radius: 0.45rem;
+  padding: 0.25rem;
+  margin-bottom: 0.30rem;
+  outline:none;
+  display: block;
+  width: 200px;
+  font-size: 1rem;
+  line-height: 1;
+  background-color:khaki;
 }
 
 button,
@@ -47,6 +66,13 @@ input[type="reset"] {
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  background-color: darkcyan;
+  color:#eeeeee;
 }
 
 form {
