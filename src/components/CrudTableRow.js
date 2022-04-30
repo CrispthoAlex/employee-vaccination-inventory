@@ -2,24 +2,30 @@ import React from 'react'
 
 
 // Component to create each data in a row
-const CrudTableRow = ({el}) => {
+const CrudTableRow = ({ el, setDataToEdit, deleteData }) => {
+  let { id, idcitizen,
+        name, lastname,
+        email, birthday,
+        address, phone,
+        vaccinated, vaccinename,
+        vaccinedate, vaccinedose } = el;
 
   return (
     <tr>
-      <td>{el.idcitizen}</td>
-      <td>{el.name}</td>
-      <td>{el.lastname}</td>
-      <td>{el.email}</td>
-      <td>{el.birthday}</td>
-      <td>{el.address}</td>
-      <td>{el.phone}</td>
-      <td>{el.vaccinated}</td>
-      <td>{el.vaccinename}</td>
-      <td>{el.vaccinedate}</td>
-      <td>{el.vaccinedose}</td>
+      <td>{idcitizen}</td>
+      <td>{name}</td>
+      <td>{lastname}</td>
+      <td>{email}</td>
+      <td>{birthday}</td>
+      <td>{address}</td>
+      <td>{phone}</td>
+      <td>{vaccinated}</td>
+      <td>{vaccinename}</td>
+      <td>{vaccinedate}</td>
+      <td>{vaccinedose}</td>
       <td>
-          <button>Edit</button>
-          <button>Delete</button>
+          <button onClick={ () => setDataToEdit(el) } >Edit</button>
+          <button onClick={() => deleteData(id)}>Delete</button>
       </td>
     </tr>
   );
