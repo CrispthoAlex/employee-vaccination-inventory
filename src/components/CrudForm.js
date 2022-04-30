@@ -5,37 +5,34 @@ import * as Yup from 'yup';
 
 
 // Employyee Vaccinate Inventory form
-const CrudForm = () => {
+const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
 
   /**
    * Pass the useFormik() hook initial form values and a submit function
    * that will be called when the form is submitted
 
    * Schema Validation with Yup library was configured
-  */
+  -------------------------------------------------------------------------
+   Error Messsage to the user on the User form
+   {formik.errors.idcitizen ? <div>{formik.errors.idcitizen}</div> : null}
 
-  const handleReset = (e) => {};
+   Visited fields
+   formik.handleBlur: To take advantage of touched, it passes to each
+   input’s onBlur prop
 
-  /**
-    Error Messsage to the user on the User form
-    {formik.errors.idcitizen ? <div>{formik.errors.idcitizen}</div> : null}
+   Reducing BoilerPlate
+   formik.getFieldProps() helper method makes it faster to wire up inputs
 
-    Visited fields
-    formik.handleBlur: To take advantage of touched, it passes to each
-    input’s onBlur prop
-
-    Reducing BoilerPlate
-    formik.getFieldProps() helper method makes it faster to wire up inputs
-
-    Swap useFormik() hook to <Formik> component/render-prop
-    convert the object passed to useFormik() to JSX, with each key becoming
-    a prop
-  */
-
+   Swap useFormik() hook to <Formik> component/render-prop
+   convert the object passed to useFormik() to JSX, with each key becoming
+   a prop
+   
+   */
+  
   return (
     <Formik
       initialValues= {{
-        id: '',
+        id: null,
         idcitizen: '',
         name: '',
         lastname: '',
@@ -49,15 +46,11 @@ const CrudForm = () => {
         vaccinedose: '',
       }}
       validationSchema= {Yup.object({
-          id: Yup.string()
-            .min(4, 'Id citizen is not correct')
-            .required('Required'),
-          idcitizen: Yup.string()
-            .max(12, 'Id citizen is not correct')
-            .min(8, 'Id citizen is not correct')
+          idcitizen: Yup.number()
+            .max(10000000000, 'Id citizen is not correct')
             .required('Required'),
           name: Yup.string()
-            .max(12, 'Must be 15 characters or less')
+            .max(20, 'Must be 15 characters or less')
             .required('Required'),
           lastname: Yup.string()
             .max(20, 'Must be 20 characters or less')
@@ -65,27 +58,31 @@ const CrudForm = () => {
           email: Yup.string().email('Invalid email address')
             .required('Required'),
           birthday: Yup.date()
-            .min('1950-01-01')
             .max('2004-01-01')
             .required('Required'),
           address: Yup.string()
-            .min(20, 'Must be 20 characters or less')
+            .min(20, 'Must be 20 characters or more')
             .required('Required'),
           phone: Yup.string()
             .min(6, 'Length of phone is wrong')
-            .max(15, 'Length of phone is wrong')
-            .required('Required'),
-          vaccinename: Yup.string()
-            .required('Required'),
-          vaccinedate: Yup.date()
-            .min('2020-01-01')
             .required('Required'),
       })}
-      onsubmit={ (values, { setSubmitting }) => {
+      onSubmit={ (values, {setSubmitting}) => {
+        console.log('Works???');
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
-        }, 400);
+          if (values.id === null) {
+            createData(values);
+          } else {
+            updateData(values);
+          }
+          console.log("Check Submit",values);
+        }, 500);
+
+      }}
+      onClick={ () => {
+        setDataToEdit(null);
       }}
     >
       {formik => (
@@ -215,7 +212,8 @@ const CrudForm = () => {
               type="date"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.checkvaccinated ? formik.values.vaccinedate : ''}
+              value={formik.values.checkvaccinated ? formik.values.vaccinedate :
+                      '' }
               min="2020-01-01"
             />
             {formik.touched.vaccinedate && formik.errors.vaccinedate ? (
@@ -231,9 +229,9 @@ const CrudForm = () => {
               onBlur={formik.handleBlur}
               value={formik.values.checkvaccinated ? formik.values.vaccinedose : ''}
             >
-              <option value="dose1">1</option>
-              <option value="dose2">2</option>
-              <option value="dose3">3</option>
+              <option value="dose 1"> 1 </option>
+              <option value="dose 2"> 2 </option>
+              <option value="dose 3"> 3 </option>
             </select>
             {formik.touched.vaccinedose && formik.errors.vaccinedose ? (
               <div>{formik.errors.vaccinedose}</div>
@@ -241,13 +239,13 @@ const CrudForm = () => {
           </div>
           <br/>
     
-          <button type="submit" value="Send">Submit</button>
-          <button type="reset" value="Clean" onClick={handleReset}>Reset</button>
+          <button type="submit" disabled={formik.isSubmitting} >Submit</button>
+          <button type="reset" onClick={formik.handleReset}>Reset</button>
+
         </form>
       )}
       </Formik>
   );
 };
-
 
 export default CrudForm;
