@@ -31,5 +31,5 @@ const CrudTable = ({data}) => {
     </div>
   )
 }
-
+// data.map((el) => <CrudTableRow key={el.id} el={el}/>)
 export default CrudTable
