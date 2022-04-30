@@ -3,9 +3,25 @@ import { Formik } from "formik";
 import * as Yup from 'yup';
 
 
+// Empty user
+const initialValues = {
+  id: null,
+  idcitizen: '',
+  name: '',
+  lastname: '',
+  email: '',
+  birthday: '',
+  address: '',
+  phone: '',
+  checkvaccinated: '',
+  vaccinename: '',
+  vaccinedate: '',
+  vaccinedose: '',
+};
 
 // Employyee Vaccinate Inventory form
 const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
+
 
   /**
    * Pass the useFormik() hook initial form values and a submit function
@@ -31,20 +47,7 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
   
   return (
     <Formik
-      initialValues= {{
-        id: null,
-        idcitizen: '',
-        name: '',
-        lastname: '',
-        email: '',
-        birthday: '',
-        address: '',
-        phone: '',
-        checkvaccinated: '',
-        vaccinename: '',
-        vaccinedate: '',
-        vaccinedose: '',
-      }}
+      initialValues= {initialValues}
       validationSchema= {Yup.object({
           idcitizen: Yup.number()
             .max(10000000000, 'Id citizen is not correct')
@@ -68,15 +71,14 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
             .required('Required'),
       })}
       onSubmit={ (values, {setSubmitting}) => {
+        // CHECK
         console.log('Works???');
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
-          if (values.id === null) {
-            createData(values);
-          } else {
-            updateData(values);
-          }
+          // Create or Updae User from Submit
+          values.id === null ? createData(values) : updateData(values);
+
           console.log("Check Submit",values);
         }, 500);
 
@@ -86,7 +88,14 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
       }}
     >
       {formik => (
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit}
+          // Mode User infor Edit on Manage Users Page
+          onChange= {() => {
+            dataToEdit ? formik.values = dataToEdit :
+              formik.values = initialValues;
+          }}
+        >
+          <h2>{dataToEdit ? "Edit" : "Adding"}</h2>
           <label htmlFor="idcitizen"> Citizen ID number </label>
           <input
             id="idcitizen"
@@ -238,7 +247,7 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
             ) : null}
           </div>
           <br/>
-    
+
           <button type="submit" disabled={formik.isSubmitting} >Submit</button>
           <button type="reset" onClick={formik.handleReset}>Reset</button>
 
