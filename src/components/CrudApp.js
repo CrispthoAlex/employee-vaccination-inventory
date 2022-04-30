@@ -57,9 +57,16 @@ const CrudApp = () => {
   /*
     Functions to manage the table
   */
-  const createData = (data) => {};
+  const createData = (data) => {
+    data.id = Date.now();
+    console.log("Before setDb ", data);
+    setDb(...db, data);
+    console.log("After setDb ",db);
+  };
 
-  const updateData = (data) => {};
+  const updateData = (data) => {
+    setDb(...db, data);
+  };
 
   const deleteData = (data) => {};
 
