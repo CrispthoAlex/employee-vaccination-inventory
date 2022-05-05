@@ -24,14 +24,39 @@ This project is about a application to record of the Employee vaccinated state. 
 
 ## **Views**
 ### + Registry form
+The validations of the inputs were evaluate with [Yup library](https://www.npmjs.com/package/yup)
 <img width=450px src='./public/images/registryview.JPG'>
 <br>
 
 ### + Employee table
 <img width=600px height='auto' src='./public/images/employeetable.JPG'>
-<br>
+<br><br>
 
 ### **Deployment**
+
+Clone this repo and follow this option to manage the Data Base fake.
+
+#### **_On your local Machine_**
+To deploy on your local machine, go to the dir:
+
+**CLI:**
+
+````
+    npm start
+
+````
+
+_Note:_ To star npm (npx) you should install it
+
+To Manage the DataBase on your local machine use this command:
+
+**CLI:**
+
+````
+    npm run json-server --watch src/api/db.json --port 5000
+````
+
+#### **_View on the web_**
 
 https://crispthoalex.github.io/employee-vaccination-inventory/
 
