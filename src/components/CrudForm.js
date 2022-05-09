@@ -70,13 +70,13 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
             .min(6, 'Length of phone is wrong')
             .required('Required'),
       })}
-      onSubmit={ (values, {setSubmitting}) => {
+      handleSubmit={ (values, {setSubmitting}) => {
         // CHECK
         console.log('Works???');
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
-          // Create or Updae User from Submit
+          // Create or Update user from Submit
           values.id === null ? createData(values) : updateData(values);
 
           console.log("Check Submit",values);
