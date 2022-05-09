@@ -2,7 +2,7 @@ import React from 'react';
 import CrudTableRow from './CrudTableRow';
 
 // Component to create Employee Inventory Table
-const CrudTable = ({data,setDataToEdit, deleteData}) => {
+const CrudTable = ({data, setDataToEdit, deleteData}) => {
 
   return (
     <div>
@@ -25,7 +25,7 @@ const CrudTable = ({data,setDataToEdit, deleteData}) => {
           </tr>
         </thead>
         <tbody>
-          { data.map((el) => (
+          { data.length > 0 ? (data.map((el) => (
               <CrudTableRow
               key={el.id}
               el={el}
@@ -33,11 +33,15 @@ const CrudTable = ({data,setDataToEdit, deleteData}) => {
               deleteData={deleteData}
               />
             ))
-          }
+          ) : (
+            <tr>
+              <td colSpan="12">Not Data</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
   )
 }
 // data.map((el) => <CrudTableRow key={el.id} el={el}/>)
-export default CrudTable
+export default CrudTable;
