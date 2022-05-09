@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect} from 'react';
+import { helpHttp } from '../helpers/helpHttp';
 import CrudForm from './CrudForm';
 import CrudTable from './CrudTable';
 
@@ -9,6 +10,21 @@ const CrudApi = () => {
 
   // Set the variable of state to create/update a data
   const [dataToEdit, setDataToEdit] = useState(null);
+
+  // Set helper
+  let api = helpHttp();
+  // Set url or endpoint
+  let url = 'http://localhost:5000/employee';
+
+  // Hook to load info to db
+  useEffect(() => {
+    api.get(url).then((res) => {
+        console.log(res);
+        !res.err ? setDb(res) : setDb(null);
+      });
+  }, []);
+
+
   /*
     Functions to manage the table
   */
@@ -37,7 +53,7 @@ const CrudApi = () => {
   return (
     <div>
       <article className='grid-1-2'>
-        <h2>MANAGE USERS</h2>
+        <h2>MANAGE USERS - CRUD API</h2>
         <CrudForm
           createData={createData}
           updateData={updateData}
