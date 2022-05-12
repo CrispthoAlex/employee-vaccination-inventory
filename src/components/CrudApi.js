@@ -2,14 +2,21 @@ import React, { useState, useEffect} from 'react';
 import { helpHttp } from '../helpers/helpHttp';
 import CrudForm from './CrudForm';
 import CrudTable from './CrudTable';
+import Loader from './Loader';
+import Message from './Message';
 
 
 
 const CrudApi = () => {
-  const [db, setDb] = useState({});
+  const [db, setDb] = useState(null);
 
   // Set the variable of state to create/update a data
   const [dataToEdit, setDataToEdit] = useState(null);
+
+  // Set Error
+  const [error, setError] = useState(null);
+  // Set Message Loading
+  const [loading, setLoading] = useState(false);
 
   // Set helper
   let api = helpHttp();
@@ -52,7 +59,7 @@ const CrudApi = () => {
 
   return (
     <div>
-      <article className='grid-1-2'>
+      <article className="grid-1-2">
         <h2>MANAGE USERS - CRUD API</h2>
         <CrudForm
           createData={createData}
@@ -60,11 +67,13 @@ const CrudApi = () => {
           dataToEdit={dataToEdit}
           setDataToEdit={setDataToEdit}
         />
-        <CrudTable
+        { loading && <Loader /> }
+        { error && <Message /> }
+        {db && <CrudTable
           data={db}
           setDataToEdit={setDataToEdit}
           deleteData={deleteData}
-        />
+        />}
       </article>
     </div>
   );
