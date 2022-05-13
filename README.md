@@ -5,20 +5,31 @@ This project is about a application to record of the Employee vaccinated state. 
 
 ## **Project Structure**
 
+* public
+    
+    * [index.html](./public/index.html)
+    * [manifest.json](./public/manifest.json)
+    * [robots.txt](./public/robots.txt)
 * src
 
+    * api
+
+        * [db.json](./src/api/db.json)
     * components
         
+        * [CrudApi.js](./src/components/CrudApi.js) 
         * [CrudApp.js](./src/components/CrudApp.js)
         * [CrudForm.js](./src/components/CrudForm.js)
         * [CrudTable.js](./src/components/CrudTable.js)
         * [CrudTableRow.js](./src/components/CrudTableRow.js)
+        * [Loader.css](./src/components/Loader.css)
+        * [Loader.js](./src/components/Loader.js)
+        * [Message.js](./src/components/Message.js)
+    * helpers
+        * [helpHttp.js](./src/helpers/helpHttp.js)
     * [App.js](./src/App.js)
     * [index.js](./src/index.js)
     * [index.css](./src/index.css)
-* public
-    
-    * [index.html](./public/index.html)
 * [package.json](package.json)
 * [README.md](README.md)
 
@@ -55,6 +66,14 @@ To Manage the DataBase on your local machine use this command:
 ````
     npm run json-server --watch src/api/db.json --port 5000
 ````
+Or,
+
+````
+    npm run fake-api
+````
+_Note: fake-api script in [package.json file](./package.json)_
+
+<br>
 
 #### **_View on the web_**
 
