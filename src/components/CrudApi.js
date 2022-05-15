@@ -25,11 +25,20 @@ const CrudApi = () => {
 
   // Hook to load info to db
   useEffect(() => {
-    api.get(url).then((res) => {
+    setLoading(true);
+
+    helpHttp().get(url).then((res) => {
         console.log(res);
-        !res.err ? setDb(res) : setDb(null);
+        if (!res.err) {
+          setDb(res);
+          setError(null);
+        } else {
+          setDb(null);
+          setError(res);
+        }
       });
-  }, []);
+    setLoading(false);
+  }, [url]);
 
 
   /*
@@ -38,11 +47,12 @@ const CrudApi = () => {
   const createData = (data) => {
     data.id = Date.now();
     console.log("Before setDb ", data);
-    setDb(...db, data);
+    setDb([...db, data]);
     console.log("After setDb ",db);
   };
 
   const updateData = (data) => {
+    console.log("Check DB ", db);
     let newData = db.map(el => el.id === data.id ? data : el)
     setDb(newData);
   };
@@ -57,6 +67,10 @@ const CrudApi = () => {
     } else {return}
   };
 
+  // Conditional render
+  // If loading variable true, so render Loader component
+  // If error variable true, so render Message component
+  // If db exist, so render CrudTable component
   return (
     <div>
       <article className="grid-1-2">
@@ -68,7 +82,7 @@ const CrudApi = () => {
           setDataToEdit={setDataToEdit}
         />
         { loading && <Loader /> }
-        { error && <Message /> }
+        { error && <Message errorMsg={`Error ${error.status}: ${error.statusText}`} bgColor="#d90000"/> }
         {db && <CrudTable
           data={db}
           setDataToEdit={setDataToEdit}
