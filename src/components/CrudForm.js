@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from 'yup';
 
 
+
 // Empty user
 const initialValues = {
   id: null,
@@ -61,7 +62,7 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
           email: Yup.string().email('Invalid email address')
             .required('Required'),
           birthday: Yup.date()
-            .max('2004-01-01')
+            .max('2004-01-01', "You must be 18 years old")
             .required('Required'),
           address: Yup.string()
             .min(20, 'Must be 20 characters or more')
@@ -70,9 +71,7 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
             .min(6, 'Length of phone is wrong')
             .required('Required'),
       })}
-      handleSubmit={ (values, {setSubmitting}) => {
-        // CHECK
-        console.log('Works???');
+      onSubmit={ (values, {setSubmitting}) => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
@@ -238,6 +237,7 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
               onBlur={formik.handleBlur}
               value={formik.values.checkvaccinated ? formik.values.vaccinedose : ''}
             >
+              <option value=""> </option>
               <option value="dose 1"> 1 </option>
               <option value="dose 2"> 2 </option>
               <option value="dose 3"> 3 </option>
